@@ -6,8 +6,6 @@ import Time exposing (Time, second)
 import Task
 import Mouse
 import Keyboard
-import Char
-import String
 import Markdown
 
 index : List a -> Int -> Maybe a
@@ -30,7 +28,7 @@ type alias Model =
   , start : Time
   , clickCount : Int
   , pageNum : Int
-  , string : String
+  , lastKeyCode : Keyboard.KeyCode
   }
 
 type alias Page = Html Msg
@@ -46,7 +44,7 @@ hogehoge
 
 init : (Model, Cmd Msg)
 init =
-  ( Model 0 0 0 0 ""
+  ( Model 0 0 0 0 0
   , Task.perform Init Time.now
   )
 
@@ -86,7 +84,7 @@ update msg model =
 
     Key code ->
     ( { model
-      | string = model.string ++ ( code |> Char.fromCode |> String.fromChar )
+      | lastKeyCode = code
       }
     , Cmd.none
     )
@@ -120,7 +118,7 @@ view model =
         )
       , Html.text
         ( toString model.clickCount )
-      , Html.text model.string
+      , Html.text (toString model.lastKeyCode)
       , getPage model
       , footer model
       ]
