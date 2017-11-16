@@ -7,7 +7,16 @@ import Task
 import Mouse
 import Keyboard
 import Markdown
-
+{-
+keyLeft : Keyboard.KeyCode
+keyLeft = 37
+keyRight : Keyboard.KeyCode
+keyRight = 39
+keyUp : Keyboard.KeyCode
+keyUp = 38
+keyDown : Keyboard.KeyCode
+keyDown = 40
+-}
 index : List a -> Int -> Maybe a
 index xs n  = List.head (List.drop n xs)
 
@@ -33,13 +42,25 @@ type alias Model =
 
 type alias Page = Html Msg
 
-slides : List Page
-slides = [Markdown.toHtml [] """
+slide : List Page
+slide = [ Markdown.toHtml [] """
 # これはマークダウンで記述されたスライドです
 
 hogehoge
 
-"""]
+""" ,Markdown.toHtml [] """
+# 2ページ目
+
+fugafuga
+""",Markdown.toHtml [] """
+# 3ページ目
+
+piyopiyo
+
+""" ]
+
+totalPageNum : Int
+totalPageNum = List.length slide
 
 
 init : (Model, Cmd Msg)
@@ -83,11 +104,24 @@ update msg model =
       )
 
     Key code ->
-    ( { model
-      | lastKeyCode = code
-      }
+    ( pageUpdateByKey model code
     , Cmd.none
     )
+
+pageUpdateByKey : Model -> Keyboard.KeyCode -> Model
+pageUpdateByKey model code =
+  case code of
+    37  -> pageUpdate model -1
+    39 -> pageUpdate model 1
+    38    -> pageUpdate model -3
+    40  -> pageUpdate model 3
+    _        -> model
+
+pageUpdate : Model -> Int -> Model
+pageUpdate model add =
+  { model
+  | pageNum = (model.pageNum + add) % totalPageNum
+  }
 
 
 
@@ -125,12 +159,12 @@ view model =
 
 getPage : Model -> Html Msg
 getPage model =
-  case index slides model.pageNum of
+  case index slide model.pageNum of
     Just html -> html
     Nothing   -> Markdown.toHtml [] "# No page data!!"
 
 footer : Model -> Html Msg
 footer model =
     Html.footer [ class "info" ]
-        [ Html.small [] [ Html.text "Slide" ]
+        [ Html.small [] [ Html.text ("Slide (" ++ toString model.pageNum ++ "/" ++ toString totalPageNum ++ ")") ]
         ]
