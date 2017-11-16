@@ -10,6 +10,9 @@ import Char
 import String
 import Markdown
 
+index : List a -> Int -> Maybe a
+index xs n  = List.head (List.drop n xs)
+
 main : Program Never Model Msg
 main =
   Html.program
@@ -19,8 +22,6 @@ main =
     , subscriptions = subscriptions
     }
 
-
-
 -- MODEL
 
 
@@ -28,28 +29,26 @@ type alias Model =
   { now : Time
   , start : Time
   , clickCount : Int
+  , pageNum : Int
   , string : String
   }
 
 type alias Page = Html Msg
 
-slide : Page
-slide = Markdown.toHtml [] """
+slides : List Page
+slides = [Markdown.toHtml [] """
 # これはマークダウンで記述されたスライドです
 
 hogehoge
 
-"""
+"""]
 
 
 init : (Model, Cmd Msg)
 init =
-  ( Model 0 0 0 ""
+  ( Model 0 0 0 0 ""
   , Task.perform Init Time.now
   )
-
-
-
 
 -- UPDATE
 
@@ -122,9 +121,15 @@ view model =
       , Html.text
         ( toString model.clickCount )
       , Html.text model.string
-      , slide
+      , getPage model
       , footer model
       ]
+
+getPage : Model -> Html Msg
+getPage model =
+  case index slides model.pageNum of
+    Just html -> html
+    Nothing   -> Markdown.toHtml [] "# No page data!!"
 
 footer : Model -> Html Msg
 footer model =
