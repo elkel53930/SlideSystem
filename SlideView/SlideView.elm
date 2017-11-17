@@ -7,6 +7,7 @@ import Task
 import Mouse
 import Keyboard
 import Markdown
+import Css
 
 index : List a -> Int -> Maybe a
 index xs n  = List.head (List.drop n xs)
@@ -38,11 +39,15 @@ type alias Page =
 
 slide : List Page
 slide =
-  [ Page "Page1" (Markdown.toHtml [] """
-# It written by Markdown!
-
-hogehoge
-
+  [ Page "" ( div []
+              [ h1  [ style [ ("text-align","center") ] ] [ text "プライベートでの開発" ]
+              , div [ style [ ("text-align","center") ] ] [ text "17.11.20 飯田一輝"] ]
+            )
+  , Page "ToC" (Markdown.toHtml [] """
+* 自己紹介
+* マイクロマウス
+* 回路記述言語 Eisler
+* プレゼンテーションアプリ
 """)
 
   , Page "Page 2" (Markdown.toHtml [] """
@@ -50,6 +55,8 @@ hogehoge
 
 **Strong**
 *Italic*
+
+* **文字列を強調**することもできます。
 
 ```
 #include <stdio.h>
