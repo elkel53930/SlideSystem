@@ -46,7 +46,7 @@ hogehoge
 """)
 
   , Page "Page 2" (Markdown.toHtml [] """
-# Studying CSS is troublesome.
+# CSSの勉強メンドクサイ
 
 **Strong**
 *Italic*
