@@ -48,13 +48,40 @@ hogehoge
   , Page "Page 2" (Markdown.toHtml [] """
 # Studying CSS is troublesome.
 
-fugafuga
+**Strong**
+*Italic*
+
+```
+#include <stdio.h>
+
+void main()
+{
+  printf("Hello,World!\\n");
+  return;
+}
+```
 """)
 
   , Page "Page 3" (Markdown.toHtml [] """
 # This is 3rd page.
 
-piyopiyo
+* A
+* A
+* A
+* A
+* A
+* A
+* A
+* A
+* A
+* A
+* A
+* A
+* A
+* A
+* A
+* A
+
 
 """)
 

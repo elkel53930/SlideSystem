@@ -29,6 +29,32 @@ body , html {
     padding-left: 30px;
 }
 
+strong{
+  font-weight: bold;
+  color: #CA3D75;
+}
+
+re,
+code,
+kbd,
+samp {
+  color: #404040;
+  font-family: monospace, monospace;
+  _font-family: 'courier new', monospace;
+  font-size: 0.98em;
+}
+
+pre {
+  background: #F0F0F0;
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  width: 80%;
+  border: ridge 5px #186273;
+  padding: 10px;
+}
+
+
 #footer {
     background: #000000;
     color: #A0A0A0;

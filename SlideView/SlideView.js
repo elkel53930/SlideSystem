@@ -9282,7 +9282,7 @@ var _user$project$SlideView$slide = {
 			A2(
 				_evancz$elm_markdown$Markdown$toHtml,
 				{ctor: '[]'},
-				'\n# Studying CSS is troublesome.\n\nfugafuga\n')),
+				'\n# Studying CSS is troublesome.\n\n**Strong**\n*Italic*\n\n```\n#include <stdio.h>\n\nvoid main()\n{\n  printf(\"Hello,World!\\n\");\n  return;\n}\n```\n')),
 		_1: {
 			ctor: '::',
 			_0: A2(
@@ -9291,7 +9291,7 @@ var _user$project$SlideView$slide = {
 				A2(
 					_evancz$elm_markdown$Markdown$toHtml,
 					{ctor: '[]'},
-					'\n# This is 3rd page.\n\npiyopiyo\n\n')),
+					'\n# This is 3rd page.\n\n* A\n* A\n* A\n* A\n* A\n* A\n* A\n* A\n* A\n* A\n* A\n* A\n* A\n* A\n* A\n* A\n\n\n')),
 			_1: {
 				ctor: '::',
 				_0: A2(
