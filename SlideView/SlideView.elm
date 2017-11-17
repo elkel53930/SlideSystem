@@ -157,14 +157,7 @@ subscriptions model =
 view : Model -> Html Msg
 view model =
   Html.div []
-      [ Html.text
-        ( Time.inSeconds (model.now - model.start)
-          |> round
-          |> toString
-        )
-      , Html.text
-        ( toString model.clickCount )
-      , Html.text (toString model.lastKeyCode)
+      [ header model
       , getPage model
       , footer model
       ]
@@ -175,14 +168,20 @@ getPage model =
     Just html -> html
     Nothing   -> Markdown.toHtml [] "# No page data!!"
 
+header : Model -> Html Msg
+header model =
+  Html.header [ id "header" ]
+    [ div [] [ Html.h1 [] [Html.text "title"] ]
+    ]
+
 footer : Model -> Html Msg
 footer model =
-    Html.footer [ id "footer" ]
-        [ div [] [ Html.small [] [ Html.text ("Slide (" ++ toString model.pageNum ++ "/" ++ toString totalPageNum ++ ")") ] ]
-        , div [] [ Html.small [] [ Html.text (  Time.inSeconds (model.now - model.start)
-                                    |> round
-                                    |> secToString ) ] ]
-        ]
+  Html.footer [ id "footer" ]
+    [ div [] [ Html.small [] [ Html.text ("Slide (" ++ toString model.pageNum ++ "/" ++ toString totalPageNum ++ ")") ] ]
+    , div [] [ Html.small [] [ Html.text (  Time.inSeconds (model.now - model.start)
+                                         |> round
+                                         |> secToString ) ] ]
+    ]
 
 secToString : Int -> String
 secToString time =  toString (time // 60)
