@@ -48,16 +48,28 @@ slide = [ Markdown.toHtml [] """
 
 hogehoge
 
-""" ,Markdown.toHtml [] """
+"""
+
+  ,Markdown.toHtml [] """
 # 2ページ目
 
 fugafuga
-""",Markdown.toHtml [] """
+"""
+
+  ,Markdown.toHtml [] """
 # 3ページ目
 
 piyopiyo
 
-""" ]
+"""
+
+  ,Markdown.toHtml [] """
+
+# 4ページ目
+
+42
+
+"""]
 
 totalPageNum : Int
 totalPageNum = List.length slide
@@ -165,6 +177,15 @@ getPage model =
 
 footer : Model -> Html Msg
 footer model =
-    Html.footer [ class "info" ]
-        [ Html.small [] [ Html.text ("Slide (" ++ toString model.pageNum ++ "/" ++ toString totalPageNum ++ ")") ]
+    Html.footer [ class "footer" ]
+        [ div [] [ Html.small [] [ Html.text ("Slide (" ++ toString model.pageNum ++ "/" ++ toString totalPageNum ++ ")") ] ]
+        , div [] [ Html.small [] [ Html.text (  Time.inSeconds (model.now - model.start)
+                                    |> round
+                                    |> secToString ) ] ]
         ]
+
+secToString : Int -> String
+secToString time =  toString (time // 60)
+                 ++ "min. "
+                 ++ toString (time % 60)
+                 ++ "sec."
