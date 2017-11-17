@@ -39,20 +39,20 @@ type alias Page =
 slide : List Page
 slide =
   [ Page "Page1" (Markdown.toHtml [] """
-# これはマークダウンで記述されたスライドです
+# It written by Markdown!
 
 hogehoge
 
 """)
 
   , Page "Page 2" (Markdown.toHtml [] """
-# 2ページ目
+# Studying CSS is troublesome.
 
 fugafuga
 """)
 
   , Page "Page 3" (Markdown.toHtml [] """
-# 3ページ目
+# This is 3rd page.
 
 piyopiyo
 
@@ -60,7 +60,7 @@ piyopiyo
 
   , Page "Last page" (Markdown.toHtml [] """
 
-# 4ページ目
+# Last!
 
 42
 

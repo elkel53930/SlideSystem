@@ -9273,7 +9273,7 @@ var _user$project$SlideView$slide = {
 		A2(
 			_evancz$elm_markdown$Markdown$toHtml,
 			{ctor: '[]'},
-			'\n# これはマークダウンで記述されたスライドです\n\nhogehoge\n\n')),
+			'\n# It written by Markdown!\n\nhogehoge\n\n')),
 	_1: {
 		ctor: '::',
 		_0: A2(
@@ -9282,7 +9282,7 @@ var _user$project$SlideView$slide = {
 			A2(
 				_evancz$elm_markdown$Markdown$toHtml,
 				{ctor: '[]'},
-				'\n# 2ページ目\n\nfugafuga\n')),
+				'\n# Studying CSS is troublesome.\n\nfugafuga\n')),
 		_1: {
 			ctor: '::',
 			_0: A2(
@@ -9291,7 +9291,7 @@ var _user$project$SlideView$slide = {
 				A2(
 					_evancz$elm_markdown$Markdown$toHtml,
 					{ctor: '[]'},
-					'\n# 3ページ目\n\npiyopiyo\n\n')),
+					'\n# This is 3rd page.\n\npiyopiyo\n\n')),
 			_1: {
 				ctor: '::',
 				_0: A2(
@@ -9300,7 +9300,7 @@ var _user$project$SlideView$slide = {
 					A2(
 						_evancz$elm_markdown$Markdown$toHtml,
 						{ctor: '[]'},
-						'\n\n# 4ページ目\n\n42\n\n')),
+						'\n\n# Last!\n\n42\n\n')),
 				_1: {ctor: '[]'}
 			}
 		}
