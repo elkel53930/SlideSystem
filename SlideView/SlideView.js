@@ -9252,58 +9252,55 @@ var _user$project$SlideView$secToString = function (time) {
 					A2(_elm_lang$core$Basics_ops['%'], time, 60)),
 				'sec.')));
 };
-var _user$project$SlideView$header = function (model) {
-	return A2(
-		_elm_lang$html$Html$header,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$id('header'),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$div,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$h1,
-						{ctor: '[]'},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text('title'),
-							_1: {ctor: '[]'}
-						}),
-					_1: {ctor: '[]'}
-				}),
-			_1: {ctor: '[]'}
-		});
-};
+var _user$project$SlideView$index = F2(
+	function (xs, n) {
+		return _elm_lang$core$List$head(
+			A2(_elm_lang$core$List$drop, n, xs));
+	});
+var _user$project$SlideView$Model = F5(
+	function (a, b, c, d, e) {
+		return {now: a, start: b, clickCount: c, pageNum: d, lastKeyCode: e};
+	});
+var _user$project$SlideView$Page = F2(
+	function (a, b) {
+		return {title: a, html: b};
+	});
 var _user$project$SlideView$slide = {
 	ctor: '::',
 	_0: A2(
-		_evancz$elm_markdown$Markdown$toHtml,
-		{ctor: '[]'},
-		'\n# これはマークダウンで記述されたスライドです\n\nhogehoge\n\n'),
+		_user$project$SlideView$Page,
+		'Page1',
+		A2(
+			_evancz$elm_markdown$Markdown$toHtml,
+			{ctor: '[]'},
+			'\n# これはマークダウンで記述されたスライドです\n\nhogehoge\n\n')),
 	_1: {
 		ctor: '::',
 		_0: A2(
-			_evancz$elm_markdown$Markdown$toHtml,
-			{ctor: '[]'},
-			'\n# 2ページ目\n\nfugafuga\n'),
+			_user$project$SlideView$Page,
+			'Page 2',
+			A2(
+				_evancz$elm_markdown$Markdown$toHtml,
+				{ctor: '[]'},
+				'\n# 2ページ目\n\nfugafuga\n')),
 		_1: {
 			ctor: '::',
 			_0: A2(
-				_evancz$elm_markdown$Markdown$toHtml,
-				{ctor: '[]'},
-				'\n# 3ページ目\n\npiyopiyo\n\n'),
+				_user$project$SlideView$Page,
+				'Page 3',
+				A2(
+					_evancz$elm_markdown$Markdown$toHtml,
+					{ctor: '[]'},
+					'\n# 3ページ目\n\npiyopiyo\n\n')),
 			_1: {
 				ctor: '::',
 				_0: A2(
-					_evancz$elm_markdown$Markdown$toHtml,
-					{ctor: '[]'},
-					'\n\n# 4ページ目\n\n42\n\n'),
+					_user$project$SlideView$Page,
+					'Last page',
+					A2(
+						_evancz$elm_markdown$Markdown$toHtml,
+						{ctor: '[]'},
+						'\n\n# 4ページ目\n\n42\n\n')),
 				_1: {ctor: '[]'}
 			}
 		}
@@ -9326,10 +9323,6 @@ var _user$project$SlideView$pageUpdateByKey = F2(
 				return A2(_user$project$SlideView$pageUpdate, model, -1);
 			case 39:
 				return A2(_user$project$SlideView$pageUpdate, model, 1);
-			case 38:
-				return A2(_user$project$SlideView$pageUpdate, model, -3);
-			case 40:
-				return A2(_user$project$SlideView$pageUpdate, model, 3);
 			default:
 				return model;
 		}
@@ -9386,27 +9379,20 @@ var _user$project$SlideView$footer = function (model) {
 				{ctor: '[]'},
 				{
 					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$small,
-						{ctor: '[]'},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text(
+					_0: _elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'Slide (',
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								_elm_lang$core$Basics$toString(model.pageNum + 1),
 								A2(
 									_elm_lang$core$Basics_ops['++'],
-									'Slide (',
+									'/',
 									A2(
 										_elm_lang$core$Basics_ops['++'],
-										_elm_lang$core$Basics$toString(model.pageNum),
-										A2(
-											_elm_lang$core$Basics_ops['++'],
-											'/',
-											A2(
-												_elm_lang$core$Basics_ops['++'],
-												_elm_lang$core$Basics$toString(_user$project$SlideView$totalPageNum),
-												')'))))),
-							_1: {ctor: '[]'}
-						}),
+										_elm_lang$core$Basics$toString(_user$project$SlideView$totalPageNum),
+										')'))))),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -9416,38 +9402,84 @@ var _user$project$SlideView$footer = function (model) {
 					{ctor: '[]'},
 					{
 						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$small,
-							{ctor: '[]'},
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html$text(
-									_user$project$SlideView$secToString(
-										_elm_lang$core$Basics$round(
-											_elm_lang$core$Time$inSeconds(model.now - model.start)))),
-								_1: {ctor: '[]'}
-							}),
+						_0: _elm_lang$html$Html$text(
+							_user$project$SlideView$secToString(
+								_elm_lang$core$Basics$round(
+									_elm_lang$core$Time$inSeconds(model.now - model.start)))),
 						_1: {ctor: '[]'}
 					}),
 				_1: {ctor: '[]'}
 			}
 		});
 };
-var _user$project$SlideView$index = F2(
-	function (xs, n) {
-		return _elm_lang$core$List$head(
-			A2(_elm_lang$core$List$drop, n, xs));
-	});
-var _user$project$SlideView$getPage = function (model) {
+var _user$project$SlideView$contents = function (model) {
 	var _p3 = A2(_user$project$SlideView$index, _user$project$SlideView$slide, model.pageNum);
 	if (_p3.ctor === 'Just') {
-		return _p3._0;
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$id('contents'),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: _p3._0.html,
+				_1: {ctor: '[]'}
+			});
 	} else {
 		return A2(
-			_evancz$elm_markdown$Markdown$toHtml,
-			{ctor: '[]'},
-			'# No page data!!');
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$id('contents'),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_evancz$elm_markdown$Markdown$toHtml,
+					{ctor: '[]'},
+					'# No page data!!'),
+				_1: {ctor: '[]'}
+			});
 	}
+};
+var _user$project$SlideView$header = function (model) {
+	return A2(
+		_elm_lang$html$Html$header,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$id('header'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$h1,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(
+								function () {
+									var _p4 = A2(_user$project$SlideView$index, _user$project$SlideView$slide, model.pageNum);
+									if (_p4.ctor === 'Just') {
+										return _p4._0.title;
+									} else {
+										return '';
+									}
+								}()),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		});
 };
 var _user$project$SlideView$view = function (model) {
 	return A2(
@@ -9458,7 +9490,7 @@ var _user$project$SlideView$view = function (model) {
 			_0: _user$project$SlideView$header(model),
 			_1: {
 				ctor: '::',
-				_0: _user$project$SlideView$getPage(model),
+				_0: _user$project$SlideView$contents(model),
 				_1: {
 					ctor: '::',
 					_0: _user$project$SlideView$footer(model),
@@ -9467,10 +9499,6 @@ var _user$project$SlideView$view = function (model) {
 			}
 		});
 };
-var _user$project$SlideView$Model = F5(
-	function (a, b, c, d, e) {
-		return {now: a, start: b, clickCount: c, pageNum: d, lastKeyCode: e};
-	});
 var _user$project$SlideView$Key = function (a) {
 	return {ctor: 'Key', _0: a};
 };
