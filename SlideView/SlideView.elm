@@ -177,7 +177,7 @@ getPage model =
 
 footer : Model -> Html Msg
 footer model =
-    Html.footer [ class "footer" ]
+    Html.footer [ id "footer" ]
         [ div [] [ Html.small [] [ Html.text ("Slide (" ++ toString model.pageNum ++ "/" ++ toString totalPageNum ++ ")") ] ]
         , div [] [ Html.small [] [ Html.text (  Time.inSeconds (model.now - model.start)
                                     |> round

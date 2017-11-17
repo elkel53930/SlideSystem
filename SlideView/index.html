@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html><head><meta charset="UTF-8"><title>SlideView</title><style>html,head,body { padding:0; margin:0; }
+<html><head><link rel="stylesheet" type="text/css" href="slide.css"><meta charset="UTF-8"><title>SlideView</title><style>html,head,body { padding:0; margin:0; }
 body { font-family: calibri, helvetica, arial, sans-serif; }</style><script type="text/javascript">
 (function() {
 'use strict';
@@ -9095,7 +9095,7 @@ function render(model)
 
 function diff(a, b)
 {
-	
+
 	if (a.model.markdown === b.model.markdown && a.model.options === b.model.options)
 	{
 		return null;
@@ -9201,26 +9201,187 @@ var _evancz$elm_markdown$Markdown$Options = F4(
 	function (a, b, c, d) {
 		return {githubFlavored: a, defaultHighlighting: b, sanitize: c, smartypants: d};
 	});
+var _user$project$SlideView$secToString = function (time) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		_elm_lang$core$Basics$toString((time / 60) | 0),
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			'min. ',
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				_elm_lang$core$Basics$toString(
+					A2(_elm_lang$core$Basics_ops['%'], time, 60)),
+				'sec.')));
+};
+var _user$project$SlideView$slide = {
+	ctor: '::',
+	_0: A2(
+		_evancz$elm_markdown$Markdown$toHtml,
+		{ctor: '[]'},
+		'\n# これはマークダウンで記述されたスライドです\n\nhogehoge\n\n'),
+	_1: {
+		ctor: '::',
+		_0: A2(
+			_evancz$elm_markdown$Markdown$toHtml,
+			{ctor: '[]'},
+			'\n# 2ページ目\n\nfugafuga\n'),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_evancz$elm_markdown$Markdown$toHtml,
+				{ctor: '[]'},
+				'\n# 3ページ目\n\npiyopiyo\n\n'),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_evancz$elm_markdown$Markdown$toHtml,
+					{ctor: '[]'},
+					'\n\n# 4ページ目\n\n42\n\n'),
+				_1: {ctor: '[]'}
+			}
+		}
+	}
+};
+var _user$project$SlideView$totalPageNum = _elm_lang$core$List$length(_user$project$SlideView$slide);
+var _user$project$SlideView$pageUpdate = F2(
+	function (model, add) {
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				pageNum: A2(_elm_lang$core$Basics_ops['%'], model.pageNum + add, _user$project$SlideView$totalPageNum)
+			});
+	});
+var _user$project$SlideView$pageUpdateByKey = F2(
+	function (model, code) {
+		var _p0 = code;
+		switch (_p0) {
+			case 37:
+				return A2(_user$project$SlideView$pageUpdate, model, -1);
+			case 39:
+				return A2(_user$project$SlideView$pageUpdate, model, 1);
+			case 38:
+				return A2(_user$project$SlideView$pageUpdate, model, -3);
+			case 40:
+				return A2(_user$project$SlideView$pageUpdate, model, 3);
+			default:
+				return model;
+		}
+	});
+var _user$project$SlideView$update = F2(
+	function (msg, model) {
+		var _p1 = msg;
+		switch (_p1.ctor) {
+			case 'Tick':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{now: _p1._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'Init':
+				var _p2 = _p1._0;
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{now: _p2, start: _p2}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'Click':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{clickCount: model.clickCount + 1}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_user$project$SlideView$pageUpdateByKey, model, _p1._0),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+		}
+	});
 var _user$project$SlideView$footer = function (model) {
 	return A2(
 		_elm_lang$html$Html$footer,
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('info'),
+			_0: _elm_lang$html$Html_Attributes$id('footer'),
 			_1: {ctor: '[]'}
 		},
 		{
 			ctor: '::',
 			_0: A2(
-				_elm_lang$html$Html$small,
+				_elm_lang$html$Html$div,
 				{ctor: '[]'},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('Slide'),
+					_0: A2(
+						_elm_lang$html$Html$small,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									'Slide (',
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										_elm_lang$core$Basics$toString(model.pageNum),
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											'/',
+											A2(
+												_elm_lang$core$Basics_ops['++'],
+												_elm_lang$core$Basics$toString(_user$project$SlideView$totalPageNum),
+												')'))))),
+							_1: {ctor: '[]'}
+						}),
 					_1: {ctor: '[]'}
 				}),
-			_1: {ctor: '[]'}
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$small,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text(
+									_user$project$SlideView$secToString(
+										_elm_lang$core$Basics$round(
+											_elm_lang$core$Time$inSeconds(model.now - model.start)))),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
 		});
+};
+var _user$project$SlideView$index = F2(
+	function (xs, n) {
+		return _elm_lang$core$List$head(
+			A2(_elm_lang$core$List$drop, n, xs));
+	});
+var _user$project$SlideView$getPage = function (model) {
+	var _p3 = A2(_user$project$SlideView$index, _user$project$SlideView$slide, model.pageNum);
+	if (_p3.ctor === 'Just') {
+		return _p3._0;
+	} else {
+		return A2(
+			_evancz$elm_markdown$Markdown$toHtml,
+			{ctor: '[]'},
+			'# No page data!!');
+	}
 };
 var _user$project$SlideView$view = function (model) {
 	return A2(
@@ -9238,72 +9399,24 @@ var _user$project$SlideView$view = function (model) {
 					_elm_lang$core$Basics$toString(model.clickCount)),
 				_1: {
 					ctor: '::',
-					_0: _elm_lang$html$Html$text(model.string),
+					_0: _elm_lang$html$Html$text(
+						_elm_lang$core$Basics$toString(model.lastKeyCode)),
 					_1: {
 						ctor: '::',
-						_0: _user$project$SlideView$footer(model),
-						_1: {ctor: '[]'}
+						_0: _user$project$SlideView$getPage(model),
+						_1: {
+							ctor: '::',
+							_0: _user$project$SlideView$footer(model),
+							_1: {ctor: '[]'}
+						}
 					}
 				}
 			}
 		});
 };
-var _user$project$SlideView$update = F2(
-	function (msg, model) {
-		var _p0 = msg;
-		switch (_p0.ctor) {
-			case 'Tick':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{now: _p0._0}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'Init':
-				var _p1 = _p0._0;
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{now: _p1, start: _p1}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'Click':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{clickCount: model.clickCount + 1}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			default:
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{
-							string: A2(
-								_elm_lang$core$Basics_ops['++'],
-								model.string,
-								_elm_lang$core$String$fromChar(
-									_elm_lang$core$Char$fromCode(_p0._0)))
-						}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-		}
-	});
-var _user$project$SlideView$slide = {
-	ctor: '::',
-	_0: A2(
-		_evancz$elm_markdown$Markdown$toHtml,
-		{ctor: '[]'},
-		'\n# これはマークダウンで記述されたスライドです\n\nhogehoge\n\n'),
-	_1: {ctor: '[]'}
-};
-var _user$project$SlideView$Model = F4(
-	function (a, b, c, d) {
-		return {now: a, start: b, clickCount: c, string: d};
+var _user$project$SlideView$Model = F5(
+	function (a, b, c, d, e) {
+		return {now: a, start: b, clickCount: c, pageNum: d, lastKeyCode: e};
 	});
 var _user$project$SlideView$Key = function (a) {
 	return {ctor: 'Key', _0: a};
@@ -9316,7 +9429,7 @@ var _user$project$SlideView$Init = function (a) {
 };
 var _user$project$SlideView$init = {
 	ctor: '_Tuple2',
-	_0: A4(_user$project$SlideView$Model, 0, 0, 0, ''),
+	_0: A5(_user$project$SlideView$Model, 0, 0, 0, 0, 0),
 	_1: A2(_elm_lang$core$Task$perform, _user$project$SlideView$Init, _elm_lang$core$Time$now)
 };
 var _user$project$SlideView$Tick = function (a) {
